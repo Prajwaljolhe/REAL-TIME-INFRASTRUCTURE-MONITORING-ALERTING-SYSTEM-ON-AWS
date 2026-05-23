@@ -1,0 +1,46 @@
+{
+  "RoleName": "CloudWatchAgentRole",
+  "Description": "IAM role for EC2 CloudWatch monitoring project",
+  "AssumeRolePolicyDocument": {
+    "Version": "2012-10-17",
+    "Statement": [
+      {
+        "Effect": "Allow",
+        "Principal": {
+          "Service": "ec2.amazonaws.com"
+        },
+        "Action": "sts:AssumeRole"
+      }
+    ]
+  },
+  "Policies": [
+    {
+      "PolicyName": "CloudWatchMonitoringPolicy",
+      "PolicyDocument": {
+        "Version": "2012-10-17",
+        "Statement": [
+          {
+            "Effect": "Allow",
+            "Action": [
+              "cloudwatch:PutMetricData",
+              "cloudwatch:GetMetricStatistics",
+              "cloudwatch:ListMetrics",
+              "logs:CreateLogGroup",
+              "logs:CreateLogStream",
+              "logs:DescribeLogStreams",
+              "logs:PutLogEvents",
+              "ssm:GetParameter",
+              "ec2:DescribeTags"
+            ],
+            "Resource": "*"
+          }
+        ]
+      }
+    }
+  ],
+  "AttachedManagedPolicies": [
+    "arn:aws:iam::aws:policy/CloudWatchAgentServerPolicy",
+    "arn:aws:iam::aws:policy/CloudWatchFullAccess",
+    "arn:aws:iam::aws:policy/AmazonSSMFullAccess"
+  ]
+}
